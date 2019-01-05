@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=ZCOOL+XiaoWei');
+		*{
+			font-family: 'ZCOOL XiaoWei', serif;
+		}
+		body {
+			padding-top: 10px;
+			padding-left: 30px;
+			line-height: 20px;
+		}
+	</style>
+</head>
+<body>
+	<p>To use the stopwatch, use key "Enter", "Space", and "k".</p>
+	<p>Press the first time, it starts to count. Press for the second time, it stops to count.</p>
+	<input type="text" id="name1"  value="Name"><br>
+	Time: <span id="time"></span> <br>
+	<button id="startButton">Start</button>
+	<button id="pauseButton">Pause</button>
+	<button id="resetButton">Reset</button>
+	<br><p id="keyPressed">Number of times the key being pressed: 0</p>
+	<br>
+	<input type="text" name="name2" value="Name">
+	<br>
+	Time: <span id="time2"></span> <br>
+	<button id="startButton2">Start</button>
+	<button id="pauseButton2">Pause</button>
+	<button id="resetButton2">Reset</button>
+	<br><p id="keyPressed2">Number of times the key being pressed: 0</p>
+	<br>
+	<input type="text" name="name3" value="Name"><br>
+	Time: <span id="time3"></span> <br>
+	<button id="startButton3">Start</button>
+	<button id="pauseButton3">Pause</button>
+	<button id="resetButton3">Reset</button>
+	<br><p id="keyPressed3">Number of times the key being pressed: 0</p>
+	
+	<script type="text/javascript">
+		
+		$("#confirmName").click(function(){
+			var name14 = $("#name1").val();
+			$("#name1").text(name14);
+		});
+
+
+
+
+
+
+		//group 1 variables
+		var prevTime = 0;
+		var stopwatchInterval = 0;
+		var elapsedTime = 0;
+		var enter_times = 0;
+		var keyPressedTimes = 0;
+		//group 2 variables
+		var prevTime2 = 0; 
+		var stopwatchInterval2 = 0; 
+		var elapsedTime2 = 0; 
+		var enter_times2 = 0; 
+		var keyPressedTimes2 = 0;
+		//group 3 variables
+		var prevTime3 = 0; 
+		var stopwatchInterval3 = 0;
+		var elapsedTime3 = 0;
+		var enter_times3 = 0;
+		var keyPressedTimes3 = 0;
+		
+		
+		//updateTime function 1 is to convert elapsedTime into proper Time format
+		var updateTime = function() {
+			tempTime = elapsedTime;
+			var millisec = tempTime%1000;
+			tempTime = Math.floor(tempTime/1000);
+			var sec	= tempTime%60;
+			tempTime = Math.floor(tempTime/60);
+			var min = tempTime%60;
+			tempTime = Math.floor(tempTime/60);
+			var hour = tempTime%60;
+
+		var time = hour + ":" + min + ":" + sec + "." + millisec;
+		$("#time").text(time);	
+		};
+
+		//updateTime function 2 is to convert elapsedTime into proper Time format
+		var updateTime2 = function() {
+			tempTime2 = elapsedTime2;
+			var millisec2 = tempTime2%1000;
+			tempTime2 = Math.floor(tempTime2/1000);
+			var sec2 = tempTime2%60;
+			tempTime2 = Math.floor(tempTime2/60);
+			var min2 = tempTime2%60;
+			tempTime2 = Math.floor(tempTime2/60);
+			var hour2 = tempTime2%60;
+
+		var time2 = hour2 + ":" + min2 + ":" + sec2 + "." + millisec2;
+		$("#time2").text(time2);	
+		};
+
+		//updateTime function 3 is to convert elapsedTime into proper Time format
+			var updateTime3 = 0;
+			updateTime3 = function() {
+			tempTime3 = elapsedTime3;
+			var millisec3 = tempTime3%1000;
+			tempTime3 = Math.floor(tempTime3/1000);
+			var sec3	= tempTime3%60;
+			tempTime3 = Math.floor(tempTime3/60);
+			var min3 = tempTime3%60;
+			tempTime3 = Math.floor(tempTime3/60);
+			var hour3 = tempTime3%60;
+
+		var time3 = hour3 + ":" + min3 + ":" + sec3 + "." + millisec3;
+		$("#time3").text(time3);	
+		};
+
+		//group 1 Start Button
+		$("#startButton").click(function(){
+			if (!stopwatchInterval) {
+				stopwatchInterval = setInterval (function() {
+					if (!prevTime) {
+						prevTime = Date.now();
+						}
+					elapsedTime += Date.now()-prevTime;
+					prevTime = Date.now();
+					updateTime();	
+				}, 50);
+			}
+		});	
+
+		//group 2 Start Button
+		$("#startButton2").click(function(){
+			if (!stopwatchInterval2) {
+				stopwatchInterval2 = setInterval (function() {
+					if (!prevTime2) {
+						prevTime2 = Date.now();
+						}
+					elapsedTime2 += Date.now()-prevTime2;
+					prevTime2 = Date.now();
+					updateTime2();	
+				}, 50);
+			}
+		});
+		
+		//group 3 Start Button
+		$("#startButton3").click(function(){
+			if (!stopwatchInterval3) {
+				stopwatchInterval3 = setInterval (function() {
+					if (!prevTime3) {
+						prevTime3 = Date.now();
+						}
+					elapsedTime3 += Date.now()-prevTime3;
+					prevTime3 = Date.now();
+					updateTime3();	
+				}, 50);
+			}
+		});
+		
+		//group 1 Pause Button
+		$("#pauseButton").click(function(){
+			if (stopwatchInterval) {
+				clearInterval(stopwatchInterval);		
+				stopwatchInterval = null;
+				keyPressedTimes ++;
+				$("#keyPressed").text("Number of times the key being pressed: " + keyPressedTimes); 
+			} 
+			prevTime = null;
+		});
+
+			
+		//group 2 Pause Button
+		$("#pauseButton2").click(function(){
+			if (stopwatchInterval2) {
+				clearInterval(stopwatchInterval2);		
+				stopwatchInterval2 = null;
+				keyPressedTimes2 ++;
+				$("#keyPressed2").text("Number of times the key being pressed: " + keyPressedTimes2); 
+			} 
+			prevTime2 = null;
+		});
+
+		//group 3 Pause Button
+		$("#pauseButton3").click(function(){
+			if (stopwatchInterval3) {
+				clearInterval(stopwatchInterval3);		
+				stopwatchInterval3 = null; 
+				keyPressedTimes3 ++;
+				$("#keyPressed3").text("Number of times the key being pressed: " + keyPressedTimes3);
+			} 
+			prevTime3 = null;
+			
+		});
+
+		//group 1 Reset Button
+		$("#resetButton").click(function(){
+			$("#pauseButton").click();
+			elapsedTime = 0;
+			keyPressedTimes = 0;
+			$("#keyPressed").text("Number of times the key being pressed: " + keyPressedTimes)
+			updateTime();
+		});
+
+		//group 2 Reset Button
+		$("#resetButton2").click(function(){
+			$("#pauseButton2").click();   
+			elapsedTime2 = 0;
+			keyPressedTimes2 = 0;
+			$("#keyPressed2").text("Number of times the key being pressed: " + keyPressedTimes2)
+			updateTime2();
+		});
+
+		//group 3 Reset Button
+		$("#resetButton3").click(function(){
+			$("#pauseButton3").click();
+			elapsedTime3 = 0;
+			keyPressedTimes3 = 0;
+			$("#keyPressed3").text("Number of times the key being pressed: " + keyPressedTimes3)
+			updateTime3();
+		});
+
+		//start doing the function
+		$(document).ready(function(){
+			updateTime();
+			updateTime2();
+			updateTime3();
+		});
+			
+		//Event Listener to know what key being pressed
+		$(document).keydown(function(event){
+			var keycode = (event.keyCode? event.keyCode: event.which);
+			if(keycode =="13") {
+				if (enter_times == "0"){
+					$("#startButton").click();
+					enter_times = 1;
+				}else if (enter_times == "1") {
+					$("#pauseButton").click();
+					enter_times = 0;
+				}
+			}
+
+			if(keycode =="32") {
+				if (enter_times2 =="0") {
+					$("#startButton2").click();
+					enter_times2 = 1;
+				}else if (enter_times2 != "0") {
+					$("#pauseButton2").click();
+					enter_times2 = 0;
+				}
+			}
+			 if(keycode =="75") {
+				if (enter_times3 =="0") {
+					$("#startButton3").click();
+					enter_times3 = 1;
+				}else if (enter_times3 != "0") {	
+					$("#pauseButton3").click();
+					enter_times3 = 0;
+				}
+			}
+		}); 
+				
+	</script>
+</body>
+</html>
